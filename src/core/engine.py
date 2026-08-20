@@ -17,6 +17,7 @@ class OmniEngine:
         """Starts the main event loop listening for commands."""
         self.is_running = True
         print("Engine started. Listening for wake word...")
+        speak("Aura system online and ready.")
         
         while self.is_running:
             # In a real scenario, this would be an async stream.

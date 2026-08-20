@@ -1,22 +1,34 @@
 import os
+import re
 from typing import Dict, Any, List
 
 class NLPProcessor:
-    """Handles parsing and intent extraction using an LLM (e.g., OpenAI)."""
+    """Handles parsing and intent extraction using local keyword matching (Free Fallback)."""
     
     def __init__(self):
-        self.api_key = os.getenv("OPENAI_API_KEY")
+        pass
         
     def extract_intent(self, text: str, context: List[Dict[str, str]]) -> Dict[str, Any]:
         """
-        Uses an LLM to parse natural language into a structured JSON intent.
-        Example return: {"action": "system_op", "parameters": {"task": "open_browser", "url": "github.com"}}
+        Uses keyword and regex matching to parse natural language into a structured JSON intent.
         """
-        if not self.api_key:
-            return {"action": "unknown", "error": "Missing API Key"}
+        text = text.lower().strip()
+        
+        # Check for browser intent
+        if "open" in text and ("browser" in text or "chrome" in text or "firefox" in text or "website" in text):
+            url = "https://google.com"
+            if "youtube" in text:
+                url = "https://youtube.com"
+            elif "github" in text:
+                url = "https://github.com"
+            return {"action": "system_op", "parameters": {"task": "open_browser", "url": url}}
             
-        # Stub implementation. In reality, this would make an API call to an LLM provider.
-        if "browser" in text.lower() or "github" in text.lower():
-            return {"action": "system_op", "parameters": {"task": "open_browser"}}
+        # Check for stats intent
+        if "cpu" in text or "ram" in text or "memory" in text or "stats" in text or "status" in text:
+            return {"action": "system_op", "parameters": {"task": "get_stats"}}
             
-        return {"action": "unknown"}
+        # Check for time intent
+        if "time" in text:
+            return {"action": "system_op", "parameters": {"task": "get_time"}}
+            
+        return {"action": "unknown", "error": "No matching intent found."}

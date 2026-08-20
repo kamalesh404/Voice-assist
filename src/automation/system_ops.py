@@ -1,23 +1,27 @@
 from typing import Dict, Any
 import os
 import platform
+import psutil
+import webbrowser
+from datetime import datetime
 
 def execute_system_command(params: Dict[str, Any]) -> str:
     """Executes a system-level command based on structured parameters."""
     task = params.get("task")
     
     if task == "open_browser":
-        # Simplified implementation
         url = params.get("url", "https://google.com")
-        if platform.system() == "Windows":
-            os.system(f"start {url}")
-        elif platform.system() == "Darwin":
-            os.system(f"open {url}")
-        else:
-            os.system(f"xdg-open {url}")
-        return f"Opening browser to {url}"
+        webbrowser.open(url)
+        return f"Opening browser to {url.replace('https://', '')}"
         
     elif task == "get_stats":
-        return "CPU is at 10 percent. RAM is at 50 percent."
+        cpu = psutil.cpu_percent(interval=0.5)
+        ram = psutil.virtual_memory().percent
+        return f"System check complete. CPU is at {cpu} percent, and RAM is at {ram} percent."
         
-    return "Action not supported yet."
+    elif task == "get_time":
+        now = datetime.now()
+        current_time = now.strftime("%I:%M %p")
+        return f"The current time is {current_time}."
+        
+    return "I am not programmed to handle that specific action yet."
