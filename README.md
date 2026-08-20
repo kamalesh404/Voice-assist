@@ -1,6 +1,6 @@
 <div align="center">
 
-# AI VOICE ASSISTANCE
+# 🚀 Aura
 
 ### AI-Powered PC Automation & Voice Assistant
 
@@ -9,6 +9,8 @@
 [![Status](https://img.shields.io/badge/Status-Active-success.svg)]()
 
 **Aura is an advanced, locally-hosted AI voice assistant designed to automate complex PC tasks, navigate your system, and process natural language commands with minimal latency.**
+
+![Aura Dashboard](docs/assets/dashboard.jpg)
 
 </div>
 
