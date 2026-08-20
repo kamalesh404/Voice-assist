@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  engine:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ENVIRONMENT=development
+    volumes:
+      - ../src:/app/src
+      - ../models:/app/models
+    devices:
+      - "/dev/snd:/dev/snd"
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:

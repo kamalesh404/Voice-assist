@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aura-engine
+  labels:
+    app: aura
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aura
+  template:
+    metadata:
+      labels:
+        app: aura
+    spec:
+      containers:
+      - name: aura-core
+        image: yourregistry.com/aura/engine:latest
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aura-secrets
+              key: openai-api-key
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+            nvidia.com/gpu: 1  # Requesting GPU for local inference

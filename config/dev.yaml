@@ -1,0 +1,19 @@
+environment: development
+debug: true
+use_local_llm: false
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  wake_word: "Aura"
+  sensitivity: 0.5
+
+nlp:
+  provider: "openai"
+  model: "gpt-4-turbo-preview"
+  max_tokens: 150
+
+plugins:
+  enabled:
+    - weather_plugin
+    - spotify_plugin
