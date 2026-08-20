@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Aura
+# AI VOICE ASSISTANCE
 
 ### AI-Powered PC Automation & Voice Assistant
 
